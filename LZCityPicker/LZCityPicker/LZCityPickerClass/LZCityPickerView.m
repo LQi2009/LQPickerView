@@ -13,25 +13,28 @@
 // 216 UIPickerView固定高度
 static NSInteger const lz_pickerHeight = 246;
 static NSInteger const lz_buttonHeight = 30;
-static LZCityPickerView *__cityPicker = nil;
-static backBlock __selectBlock;
-// 记录当前选择器是否已经显示
-static BOOL __isShowed = NO;
-// 当前父视图
-static UIView *__supperView;
 
-static NSString *__tempProvince;
-static NSString *__tempCity;
-static NSString *__tempArea;
-
-@interface LZCityPickerView ()<UIPickerViewDelegate,UIPickerViewDataSource>
-
+//static LZCityPickerView *__cityPicker = nil;
+@interface LZCityPickerView ()<UIPickerViewDelegate,UIPickerViewDataSource> {
+    
+    // 记录当前选择器是否已经显示
+    BOOL __isShowed ;
+    
+    NSString *__tempProvince;
+    NSString *__tempCity;
+    NSString *__tempArea;
+}
+ // 当前父视图
+@property (nonatomic, strong) UIView *_superView;
+@property (nonatomic, copy) backBlock _selectBlock;
+// subViews
 @property (strong, nonatomic)UIView *contentView;
 @property (strong, nonatomic)UIPickerView *pickerView;
 @property (strong, nonatomic)UIButton *commitButton;
 @property (strong, nonatomic)UIButton *cancelButton;
 @property (strong, nonatomic)UIImageView *bkgImageView;
 @property (strong, nonatomic)UIVisualEffectView *blurView;
+@property (strong, nonatomic)CALayer *topLine;
 
 @property (strong, nonatomic)NSMutableArray *provinces;
 @property (strong, nonatomic)NSMutableDictionary *dataDic;
@@ -44,14 +47,14 @@ static NSString *__tempArea;
 
 + (instancetype)showInView:(UIView *)view didSelectWithBlock:(backBlock)block {
     
-    __cityPicker = [[LZCityPickerView alloc]init];
-    __cityPicker.frame = CGRectMake(0, lz_screenHeight, lz_screenWidth, lz_pickerHeight);
-    __supperView = view;
+    LZCityPickerView* cityPicker = [[LZCityPickerView alloc]init];
+    cityPicker.frame = CGRectMake(0, lz_screenHeight, lz_screenWidth, lz_pickerHeight);
+    cityPicker._superView = view;
     
-    [__cityPicker show];
+    [cityPicker show];
     
-    __selectBlock = block;
-    return __cityPicker;
+    cityPicker._selectBlock = block;
+    return cityPicker;
 }
 
 - (void)show {
@@ -60,9 +63,9 @@ static NSString *__tempArea;
     }
     
     __isShowed = YES;
-    [__supperView addSubview:__cityPicker];
+    [self._superView addSubview:self];
     [UIView animateWithDuration:0.20 animations:^{
-        __cityPicker.frame = CGRectMake(0, lz_screenHeight - lz_pickerHeight, lz_screenWidth, lz_pickerHeight);
+        self.frame = CGRectMake(0, lz_screenHeight - lz_pickerHeight, lz_screenWidth, lz_pickerHeight);
     } completion:^(BOOL finished) {
         
     }];
@@ -76,11 +79,10 @@ static NSString *__tempArea;
     
     __isShowed = NO;
     [UIView animateWithDuration:0.20 animations:^{
-        __cityPicker.frame = CGRectMake(0, lz_screenHeight, lz_screenWidth, lz_pickerHeight);
+        self.frame = CGRectMake(0, lz_screenHeight, lz_screenWidth, lz_pickerHeight);
     } completion:^(BOOL finished) {
         
-        [__cityPicker removeFromSuperview];
-        __cityPicker = nil;
+        [self removeFromSuperview];
     }];
 }
 
@@ -104,9 +106,9 @@ static NSString *__tempArea;
     self = [super init];
     if (self) {
         
-        NSAssert(!__supperView, @"ERROR: Please use 'showInView:didSelectWithBlock:' to initialize, and the first parameter can not be nil!");
+        NSAssert(!self._superView, @"ERROR: Please use 'showInView:didSelectWithBlock:' to initialize, and the first parameter can not be nil!");
 //        NSLog(@"视图初始化了");
-        self.backgroundColor = [UIColor colorWithRed:210/255.0 green:210/255.0 blue:210/255.0 alpha:1.0];
+        self.backgroundColor = [UIColor whiteColor];
         [self loadData];
     }
     
@@ -154,10 +156,6 @@ static NSString *__tempArea;
     __tempArea = [self.areas firstObject];
 }
 
-- (void)reloadDate {
-    
-}
-
 - (NSMutableDictionary *)dataDic {
     if (_dataDic == nil) {
         _dataDic = [[NSMutableDictionary alloc]initWithCapacity:0];
@@ -165,6 +163,7 @@ static NSString *__tempArea;
     
     return _dataDic;
 }
+
 - (NSMutableArray *)provinces {
     if (_provinces == nil) {
         _provinces = [NSMutableArray arrayWithCapacity:0];
@@ -256,10 +255,6 @@ static NSString *__tempArea;
     if (_cancelButton == nil) {
         _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
         
-//        _cancelButton.titleLabel.font = [UIFont systemFontOfSize:14];
-//        [_cancelButton setTitle:@"取消" forState:UIControlStateNormal];
-//        [_cancelButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        
         NSAttributedString *str = [[NSAttributedString alloc]initWithString:@"取消" attributes:self.titleAttributes];
         [_cancelButton setAttributedTitle:str forState:UIControlStateNormal];
         [_cancelButton addTarget:self action:@selector(cancelButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -269,6 +264,14 @@ static NSString *__tempArea;
     return _cancelButton;
 }
 
+- (CALayer *)topLine {
+    if (_topLine == nil) {
+        _topLine = [CALayer layer];
+        _topLine.backgroundColor = [UIColor grayColor].CGColor;
+    }
+    
+    return _topLine;
+}
 - (void)layoutSubviews {
     [super layoutSubviews];
     
@@ -289,9 +292,8 @@ static NSString *__tempArea;
     
     self.commitButton.frame = CGRectMake(lz_screenWidth - 50, 5, 40, lz_buttonHeight - 10);
     
-}
-- (void)layoutMainView {
-    
+    self.topLine.frame = CGRectMake(0, 0, lz_screenWidth, 0.4);
+    [self.contentView.layer addSublayer:self.topLine];
 }
 
 - (void)commitButtonClick:(UIButton *)button {
