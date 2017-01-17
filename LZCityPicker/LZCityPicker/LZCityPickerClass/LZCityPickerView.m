@@ -48,13 +48,13 @@ static NSString *__tempArea;
     __cityPicker.frame = CGRectMake(0, lz_screenHeight, lz_screenWidth, lz_pickerHeight);
     __supperView = view;
     
-    [self show];
+    [__cityPicker show];
     
     __selectBlock = block;
     return __cityPicker;
 }
 
-+ (void)show {
+- (void)show {
     if (__isShowed == YES) {
         return;
     }
@@ -68,7 +68,7 @@ static NSString *__tempArea;
     }];
 }
 
-+ (void)dismiss {
+- (void)dismiss {
     
     if (__isShowed == NO) {
         return;
@@ -113,7 +113,7 @@ static NSString *__tempArea;
 
 - (void)dealloc {
     
-//    NSLog(@"视图销毁了");
+    NSLog(@"视图销毁了");
 }
 
 /** 加载数据源 */
@@ -203,10 +203,6 @@ static NSString *__tempArea;
         _bkgImageView.contentMode = UIViewContentModeScaleAspectFill;
         _bkgImageView.clipsToBounds = YES;
         [self insertSubview:_bkgImageView atIndex:0];
-        
-        
-//        [self insertSubview:blurView aboveSubview:_bkgImageView];
-//        [self insertSubview:blurView atIndex:1];
     }
     
     return _bkgImageView;
@@ -244,11 +240,7 @@ static NSString *__tempArea;
         
         _commitButton = [UIButton buttonWithType:UIButtonTypeCustom];
         
-//        _commitButton.titleLabel.font = [UIFont systemFontOfSize:14];
-//        [_commitButton setTitle:@"确定" forState:UIControlStateNormal];
-//        [_commitButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        
-        NSAttributedString *str = [[NSAttributedString alloc]initWithString:@"确定" attributes:self.titleAttributes];
+        NSAttributedString *str = [[NSAttributedString alloc]initWithString:@"完成" attributes:self.titleAttributes];
         [_commitButton setAttributedTitle:str forState:UIControlStateNormal];
         
         [_commitButton addTarget:self action:@selector(commitButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -288,10 +280,12 @@ static NSString *__tempArea;
     }
     
     if (!self.autoChange) {
-        self.commitButton.frame = CGRectMake(10, 5, 40, lz_buttonHeight - 10);
+        
+        self.cancelButton.frame = CGRectMake(10, 5, 40, lz_buttonHeight - 10);
+        
     }
     
-    self.cancelButton.frame = CGRectMake(lz_screenWidth - 50, 5, 40, lz_buttonHeight - 10);
+    self.commitButton.frame = CGRectMake(lz_screenWidth - 50, 5, 40, lz_buttonHeight - 10);
     
 }
 - (void)layoutMainView {
@@ -307,12 +301,12 @@ static NSString *__tempArea;
         __selectBlock(address,__tempProvince,__tempCity,__tempArea);
     }
     
-    [LZCityPickerView dismiss];
+    [self dismiss];
 }
 
 - (void)cancelButtonClick:(UIButton *)button {
     
-    [LZCityPickerView dismiss];
+    [self dismiss];
 }
 
 #pragma mark - UIPickerView 代理和数据源方法
@@ -449,6 +443,8 @@ static NSString *__tempArea;
         __selectBlock(address,__tempProvince,__tempCity,__tempArea);
     }
 }
+
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

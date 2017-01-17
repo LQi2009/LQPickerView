@@ -30,9 +30,10 @@
         NSLog(@"%@--%@--%@--%@",address,province,city,area);
     }];
     
-//    picker.autoChange = YES;
+    picker.autoChange = YES;
     picker.backgroundImage = [UIImage imageNamed:@"40fe711f9b754b596159f3a6.jpg"];
-    picker.textAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:[UIColor redColor]};
+    picker.textAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:[UIColor whiteColor]};
+    picker.titleAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:[UIColor whiteColor]};
 }
 
 - (void)didReceiveMemoryWarning {
