@@ -103,6 +103,8 @@ static NSString *__tempArea;
 - (instancetype)init {
     self = [super init];
     if (self) {
+        
+        NSAssert(!__supperView, @"ERROR: Please use 'showInView:didSelectWithBlock:' to initialize, and the first parameter can not be nil!");
 //        NSLog(@"视图初始化了");
         self.backgroundColor = [UIColor colorWithRed:210/255.0 green:210/255.0 blue:210/255.0 alpha:1.0];
         [self loadData];
