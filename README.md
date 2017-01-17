@@ -29,4 +29,5 @@
 
 
 ![示意图](https://github.com/LQQZYY/LZCityPicker/blob/master/pic.gif)
+![自动回调选择示意图](https://github.com/LQQZYY/LZCityPicker/blob/master/pic1.gif)
     
