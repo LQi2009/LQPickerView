@@ -24,9 +24,9 @@
     picker.titleAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:[UIColor whiteColor]};
     
     ```
-    
-    #示意图
 
-   
-    ![示意图](https://github.com/LQQZYY/LZCityPicker/blob/master/pic.gif)
+#示意图
+
+
+![示意图](https://github.com/LQQZYY/LZCityPicker/blob/master/pic.gif)
     
