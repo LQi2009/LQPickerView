@@ -8,25 +8,27 @@
 
 #import "LZCityPickerView.h"
 
+
 #define lz_screenWidth ([UIScreen mainScreen].bounds.size.width)
 #define lz_screenHeight ([UIScreen mainScreen].bounds.size.height)
 // 216 UIPickerView固定高度
 static NSInteger const lz_pickerHeight = 246;
 static NSInteger const lz_buttonHeight = 30;
 
-//static LZCityPickerView *__cityPicker = nil;
 @interface LZCityPickerView ()<UIPickerViewDelegate,UIPickerViewDataSource> {
     
     // 记录当前选择器是否已经显示
     BOOL __isShowed ;
     
-    NSString *__tempProvince;
-    NSString *__tempCity;
-    NSString *__tempArea;
+    LZProvince *__currentProvience;
+    LZCity *__currentCity;
+    LZArea *__currentArea;
 }
  // 当前父视图
 @property (nonatomic, strong) UIView *_superView;
-@property (nonatomic, copy) backBlock _selectBlock;
+@property (nonatomic, copy) lz_backBlock _selectBlock;
+@property (nonatomic, copy) lz_actionBlock _cancelBlock;
+
 // subViews
 @property (strong, nonatomic)UIView *contentView;
 @property (strong, nonatomic)UIPickerView *pickerView;
@@ -35,29 +37,26 @@ static NSInteger const lz_buttonHeight = 30;
 @property (strong, nonatomic)UIImageView *bkgImageView;
 @property (strong, nonatomic)UIVisualEffectView *blurView;
 @property (strong, nonatomic)CALayer *topLine;
-
-@property (strong, nonatomic)NSMutableArray *provinces;
-@property (strong, nonatomic)NSMutableDictionary *dataDic;
-@property (strong, nonatomic)NSMutableArray *cities;
-@property (strong, nonatomic)NSMutableArray *areas;
-
-//@property (copy, nonatomic);
+//dataSource
+@property (nonatomic, strong) NSMutableArray *dataSource;
 @end
 @implementation LZCityPickerView
 
-+ (instancetype)showInView:(UIView *)view didSelectWithBlock:(backBlock)block {
++ (instancetype)showInView:(UIView *)view didSelectWithBlock:(lz_backBlock)block cancelBlock:(lz_actionBlock)cancel {
     
     LZCityPickerView* cityPicker = [[LZCityPickerView alloc]init];
     cityPicker.frame = CGRectMake(0, lz_screenHeight, lz_screenWidth, lz_pickerHeight);
     cityPicker._superView = view;
     
-    [cityPicker show];
+    cityPicker.autoChange = YES;
+    [cityPicker showWithBlock:nil];
     
     cityPicker._selectBlock = block;
+    cityPicker._cancelBlock = cancel;
     return cityPicker;
 }
 
-- (void)show {
+- (void)showWithBlock:(void(^)())block {
     if (__isShowed == YES) {
         return;
     }
@@ -67,11 +66,13 @@ static NSInteger const lz_buttonHeight = 30;
     [UIView animateWithDuration:0.20 animations:^{
         self.frame = CGRectMake(0, lz_screenHeight - lz_pickerHeight, lz_screenWidth, lz_pickerHeight);
     } completion:^(BOOL finished) {
-        
+        if (block) {
+            block();
+        }
     }];
 }
 
-- (void)dismiss {
+- (void)dismissWithBlock:(void(^)())block {
     
     if (__isShowed == NO) {
         return;
@@ -83,7 +84,19 @@ static NSInteger const lz_buttonHeight = 30;
     } completion:^(BOOL finished) {
         
         [self removeFromSuperview];
+        if (block) {
+            block();
+        }
     }];
+}
+
+#pragma mark - property getter
+- (NSMutableArray *)dataSource {
+    if (_dataSource == nil) {
+        _dataSource = [NSMutableArray arrayWithCapacity:0];
+    }
+    
+    return _dataSource;
 }
 
 - (NSDictionary *)textAttributes {
@@ -119,74 +132,41 @@ static NSInteger const lz_buttonHeight = 30;
     
     NSLog(@"视图销毁了");
 }
-
-/** 加载数据源 */
+#pragma mark - /** 加载数据源 */
 - (void)loadData {
     NSString *path = [[NSBundle mainBundle]pathForResource:@"Address" ofType:@"plist"];
     
     NSDictionary *dic = [[NSDictionary alloc]initWithContentsOfFile:path];
     
-    [self.dataDic setValuesForKeysWithDictionary:dic];
-    
     NSArray *provinces = [dic allKeys];
-    [self.provinces addObjectsFromArray:provinces];
-    __tempProvince = [self.provinces firstObject];
     
-    NSString *provinc = [self.provinces firstObject];
-    NSArray *arr = [self.dataDic objectForKey:provinc];
-    
-    NSDictionary *cityDic = [arr firstObject];
-    NSArray *cities = [cityDic allKeys];
-    
-    if (self.cities.count > 0) {
-        [self.cities removeAllObjects];
+    for (NSString *tmp in provinces) {
+        
+        LZProvince *province = [[LZProvince alloc]init];
+        province.name = tmp;
+        
+        NSArray *arr = [dic objectForKey:tmp];
+        
+        NSDictionary *cityDic = [arr firstObject];
+        
+        [province configWithDic:cityDic];
+        
+        [self.dataSource addObject:province];
     }
     
-    [self.cities addObjectsFromArray:cities];
-    __tempCity = [self.cities firstObject];
+    // 设置当前数据
+    LZProvince *defPro = [self.dataSource firstObject];
     
-    NSString *city = [cities firstObject];
-    NSArray *areas = [cityDic objectForKey:city];
+    __currentProvience = defPro;
     
-    if (self.areas.count > 0) {
-        [self.areas removeAllObjects];
-    }
+    LZCity *defCity = [defPro.cities firstObject];
     
-    [self.areas addObjectsFromArray:areas];
-    __tempArea = [self.areas firstObject];
+    __currentCity = defCity;
+    
+    __currentArea = [defCity.areas firstObject];
 }
 
-- (NSMutableDictionary *)dataDic {
-    if (_dataDic == nil) {
-        _dataDic = [[NSMutableDictionary alloc]initWithCapacity:0];
-    }
-    
-    return _dataDic;
-}
-
-- (NSMutableArray *)provinces {
-    if (_provinces == nil) {
-        _provinces = [NSMutableArray arrayWithCapacity:0];
-    }
-    
-    return _provinces;
-}
-
-- (NSMutableArray *)cities {
-    if (_cities == nil) {
-        _cities = [NSMutableArray arrayWithCapacity:0];
-    }
-    
-    return _cities;
-}
-- (NSMutableArray *)areas {
-    if (_areas == nil) {
-        _areas = [NSMutableArray arrayWithCapacity:0];
-    }
-    
-    return _areas;
-}
-
+#pragma mark - 懒加载子视图
 - (UIView *)contentView {
     if (_contentView == nil) {
         _contentView = [[UIView alloc]initWithFrame:self.bounds];
@@ -295,22 +275,34 @@ static NSInteger const lz_buttonHeight = 30;
     self.topLine.frame = CGRectMake(0, 0, lz_screenWidth, 0.4);
     [self.contentView.layer addSublayer:self.topLine];
 }
-
+#pragma mark - 按钮点击事件
 - (void)commitButtonClick:(UIButton *)button {
     
     // 选择结果回调
-    if (__selectBlock) {
+    if (self._selectBlock) {
         
-        NSString *address = [NSString stringWithFormat:@"%@-%@-%@",__tempProvince,__tempCity,__tempArea];
-        __selectBlock(address,__tempProvince,__tempCity,__tempArea);
+        NSString *address = [NSString stringWithFormat:@"%@-%@-%@",__currentArea.province,__currentArea.city,__currentArea.name];
+        self._selectBlock(address,__currentArea.province,__currentArea.city,__currentArea.name);
     }
     
-    [self dismiss];
+    __weak typeof(self)ws = self;
+    [self dismissWithBlock:^{
+        
+        if (ws._cancelBlock) {
+            ws._cancelBlock();
+        }
+    }];
 }
 
 - (void)cancelButtonClick:(UIButton *)button {
     
-    [self dismiss];
+    __weak typeof(self)ws = self;
+    [self dismissWithBlock:^{
+        
+        if (ws._cancelBlock) {
+            ws._cancelBlock();
+        }
+    }];
 }
 
 #pragma mark - UIPickerView 代理和数据源方法
@@ -337,13 +329,13 @@ static NSInteger const lz_buttonHeight = 30;
     
     if (component == 0) {
         
-        return self.provinces.count;
+        return self.dataSource.count;
     } else if (component == 1) {
         
-        return self.cities.count;
+        return __currentProvience.cities.count;
     } else {
         
-        return self.areas.count;
+        return __currentCity.areas.count;
     }
 }
 
@@ -360,19 +352,25 @@ static NSInteger const lz_buttonHeight = 30;
     
     if (component == 0) {
         
-        NSAttributedString *attStr = [[NSAttributedString alloc]initWithString:[self.provinces objectAtIndex:row] attributes:self.textAttributes];
+        LZProvince *pro = [self.dataSource objectAtIndex:row];
+        NSAttributedString *attStr = [[NSAttributedString alloc]initWithString:pro.name attributes:self.textAttributes];
         label.attributedText = attStr;
     } else if (component == 1) {
         
-        if (self.cities.count > row) {
+        if (__currentProvience.cities.count > row) {
             
-            NSAttributedString *attStr = [[NSAttributedString alloc]initWithString:[self.cities objectAtIndex:row] attributes:self.textAttributes];
+            LZCity *city = [__currentProvience.cities objectAtIndex:row];
+            NSAttributedString *attStr = [[NSAttributedString alloc]initWithString:city.name attributes:self.textAttributes];
             label.attributedText = attStr;
         }
     } else {
         
-        NSAttributedString *attStr = [[NSAttributedString alloc]initWithString:[self.areas objectAtIndex:row] attributes:self.textAttributes];
-        label.attributedText = attStr;
+        if (__currentCity.areas.count > row) {
+            
+            LZArea *area = [__currentCity.areas objectAtIndex:row];
+            NSAttributedString *attStr = [[NSAttributedString alloc]initWithString:area.name attributes:self.textAttributes];
+            label.attributedText = attStr;
+        }
     }
     
     return label;
@@ -382,31 +380,13 @@ static NSInteger const lz_buttonHeight = 30;
     
     if (component == 0) {
         
-        NSString *province = [self.provinces objectAtIndex:row];
-        __tempProvince = province;
+        LZProvince *province = [self.dataSource objectAtIndex:row];
+        __currentProvience = province;
         
+        LZCity *city = [province.cities firstObject];
+        __currentCity = city;
         
-        NSArray *arr = [self.dataDic objectForKey:province];
-        
-        NSDictionary *cityDic = [arr firstObject];
-        NSArray *cities = [cityDic allKeys];
-        
-        if (self.cities.count > 0) {
-            [self.cities removeAllObjects];
-        }
-        
-        [self.cities addObjectsFromArray:cities];
-        __tempCity = [self.cities firstObject];
-        
-        NSString *cityArea = [cities firstObject];
-        NSArray *areas = [cityDic objectForKey:cityArea];
-        
-        if (self.areas.count > 0) {
-            [self.areas removeAllObjects];
-        }
-        
-        [self.areas addObjectsFromArray:areas];
-        __tempArea = [self.areas firstObject];
+        __currentArea = [city.areas firstObject];
         
         [pickerView reloadComponent:1];
         [pickerView selectRow:0 inComponent:1 animated:YES];
@@ -415,36 +395,28 @@ static NSInteger const lz_buttonHeight = 30;
         [pickerView selectRow:0 inComponent:2 animated:YES];
     } else if (component == 1) {
         
-        NSArray *arr = [self.dataDic objectForKey:__tempProvince];
-        
-        NSDictionary *cityDic = [arr firstObject];
-        
-        NSString *city = [self.cities objectAtIndex:row];
-        __tempCity = city;
-        
-        NSArray *areas = [cityDic objectForKey:city];
-        
-        if (self.areas.count > 0) {
-            [self.areas removeAllObjects];
+        if (__currentProvience.cities.count > row) {
+            
+            LZCity *city = [__currentProvience.cities objectAtIndex:row];
+            __currentCity = city;
+            
+            __currentArea = [city.areas firstObject];
         }
-        
-        [self.areas addObjectsFromArray:areas];
-        __tempArea = [self.areas firstObject];
         
         [pickerView reloadComponent:2];
         [pickerView selectRow:0 inComponent:2 animated:YES];
     } else if (component == 2) {
         
-        NSString *area = [self.areas objectAtIndex:row];
-        
-        __tempArea = area;
+        if (__currentCity.areas.count > row) {
+             __currentArea = [__currentCity.areas objectAtIndex:row];
+        }
     }
     
     // 选择结果回调
     if (__selectBlock && self.autoChange) {
         
-        NSString *address = [NSString stringWithFormat:@"%@-%@-%@",__tempProvince,__tempCity,__tempArea];
-        __selectBlock(address,__tempProvince,__tempCity,__tempArea);
+        NSString *address = [NSString stringWithFormat:@"%@-%@-%@",__currentArea.province,__currentArea.city,__currentArea.name];
+        __selectBlock(address,__currentArea.province,__currentArea.city,__currentArea.name);
     }
 }
 

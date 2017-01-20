@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LZPickerModel.h"
 
-typedef void(^backBlock)(NSString *address, NSString *province,NSString *city,NSString *area);
+typedef void(^lz_backBlock)(NSString *address, NSString *province,NSString *city,NSString *area);
 
+typedef void(^lz_actionBlock)();
 @interface LZCityPickerView : UIView
 /** 是否自动显示选择结果 */
 @property (assign, nonatomic)BOOL autoChange;
@@ -31,8 +33,10 @@ typedef void(^backBlock)(NSString *address, NSString *province,NSString *city,NS
  *
  *  @return 选择器实例
  */
-+ (instancetype)showInView:(UIView *)view didSelectWithBlock:(backBlock)block;
++ (instancetype)showInView:(UIView *)view
+        didSelectWithBlock:(lz_backBlock)block
+               cancelBlock:(lz_actionBlock)cancel;
 
-//+ (void)autoChangeValue:(BOOL)isAuto;
-//+ (void)
+- (void)showWithBlock:(void(^)())block ;
+- (void)dismissWithBlock:(void(^)())block ;
 @end

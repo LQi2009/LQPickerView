@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		910F76E11E319E740018B914 /* LZCityPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 910F76E01E319E740018B914 /* LZCityPickerController.m */; };
+		910F76E41E319E910018B914 /* LZPickerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 910F76E31E319E910018B914 /* LZPickerModel.m */; };
 		913AD67C1D7528B8005DA1CA /* 40fe711f9b754b596159f3a6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 913AD67B1D7528B8005DA1CA /* 40fe711f9b754b596159f3a6.jpg */; };
 		91D23E2E1D740A160033A791 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D23E2D1D740A160033A791 /* main.m */; };
 		91D23E311D740A160033A791 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D23E301D740A160033A791 /* AppDelegate.m */; };
@@ -30,6 +32,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		910F76DF1E319E740018B914 /* LZCityPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZCityPickerController.h; sourceTree = "<group>"; };
+		910F76E01E319E740018B914 /* LZCityPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZCityPickerController.m; sourceTree = "<group>"; };
+		910F76E21E319E910018B914 /* LZPickerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZPickerModel.h; sourceTree = "<group>"; };
+		910F76E31E319E910018B914 /* LZPickerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZPickerModel.m; sourceTree = "<group>"; };
 		913AD67B1D7528B8005DA1CA /* 40fe711f9b754b596159f3a6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 40fe711f9b754b596159f3a6.jpg; sourceTree = "<group>"; };
 		91D23E291D740A160033A791 /* LZCityPicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LZCityPicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91D23E2D1D740A160033A791 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -126,6 +132,10 @@
 				91D23E551D740A670033A791 /* Address.plist */,
 				91D23E521D740A4E0033A791 /* LZCityPickerView.h */,
 				91D23E531D740A4E0033A791 /* LZCityPickerView.m */,
+				910F76DF1E319E740018B914 /* LZCityPickerController.h */,
+				910F76E01E319E740018B914 /* LZCityPickerController.m */,
+				910F76E21E319E910018B914 /* LZPickerModel.h */,
+				910F76E31E319E910018B914 /* LZPickerModel.m */,
 			);
 			path = LZCityPickerClass;
 			sourceTree = "<group>";
@@ -179,6 +189,7 @@
 				TargetAttributes = {
 					91D23E281D740A160033A791 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 29BN9F9KNE;
 					};
 					91D23E411D740A160033A791 = {
 						CreatedOnToolsVersion = 7.3;
@@ -233,9 +244,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				91D23E341D740A160033A791 /* ViewController.m in Sources */,
+				910F76E11E319E740018B914 /* LZCityPickerController.m in Sources */,
 				91D23E541D740A4E0033A791 /* LZCityPickerView.m in Sources */,
 				91D23E311D740A160033A791 /* AppDelegate.m in Sources */,
 				91D23E2E1D740A160033A791 /* main.m in Sources */,
+				910F76E41E319E910018B914 /* LZPickerModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,6 +378,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 29BN9F9KNE;
 				INFOPLIST_FILE = LZCityPicker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.artup.LZCityPicker;
@@ -376,6 +390,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 29BN9F9KNE;
 				INFOPLIST_FILE = LZCityPicker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.artup.LZCityPicker;
