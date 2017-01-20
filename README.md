@@ -25,8 +25,21 @@
     
 ```
 
-#示意图
+或者, 直接使用**LZCityPickerController**, 这里增加了一个透明背景, 使用非常简单:
+```
+[LZCityPickerController showPickerInViewController:self selectBlock:^(NSString *address, NSString *province, NSString *city, NSString *area) {
+        
+        // 选择结果回调
+        self.addressLabel.text = address;
+        NSLog(@"%@--%@--%@--%@",address,province,city,area);
 
+    }];
+  
+```
+
+**block**用于返回结果, 只需要将当前控制器传过去即可;
+
+#示意图
 
 ![示意图](https://github.com/LQQZYY/LZCityPicker/blob/master/pic.gif)
 ![自动回调选择示意图](https://github.com/LQQZYY/LZCityPicker/blob/master/pic1.gif)
