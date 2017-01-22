@@ -18,6 +18,8 @@ typedef void(^lz_actionBlock)();
 /** 设置背景图片,带有模糊效果 */
 @property (strong, nonatomic)UIImage *backgroundImage;
 
+/** 动画时间间隔 默认 0.2s*/
+@property (nonatomic, assign) NSTimeInterval interval;
 //建议 NSFontAttributeName 和 NSForegroundColorAttributeName一同设置
 /** 选择器文本内容字体属性,默认:蓝色,14号 */
 @property (strong, nonatomic)NSDictionary *textAttributes;

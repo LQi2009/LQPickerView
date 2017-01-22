@@ -53,6 +53,8 @@ static NSInteger const lz_buttonHeight = 30;
     
     cityPicker._selectBlock = block;
     cityPicker._cancelBlock = cancel;
+    
+    cityPicker.interval = 0.20;
     return cityPicker;
 }
 
@@ -63,7 +65,7 @@ static NSInteger const lz_buttonHeight = 30;
     
     __isShowed = YES;
     [self._superView addSubview:self];
-    [UIView animateWithDuration:0.20 animations:^{
+    [UIView animateWithDuration:self.interval animations:^{
         self.frame = CGRectMake(0, lz_screenHeight - lz_pickerHeight, lz_screenWidth, lz_pickerHeight);
     } completion:^(BOOL finished) {
         if (block) {
@@ -79,7 +81,7 @@ static NSInteger const lz_buttonHeight = 30;
     }
     
     __isShowed = NO;
-    [UIView animateWithDuration:0.20 animations:^{
+    [UIView animateWithDuration:self.interval animations:^{
         self.frame = CGRectMake(0, lz_screenHeight, lz_screenWidth, lz_pickerHeight);
     } completion:^(BOOL finished) {
         
