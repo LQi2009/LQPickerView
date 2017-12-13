@@ -51,6 +51,8 @@
     }];
     
     // picker的一些属性可以在这里配置
+
+//    _cityPicker.type = LZPickerTypeCity;
 //        _cityPicker.autoChange = YES;
 //        _cityPicker.backgroundImage = [UIImage imageNamed:@"40fe711f9b754b596159f3a6.jpg"];
 //    

@@ -9,10 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "LZPickerModel.h"
 
-typedef void(^lz_backBlock)(NSString *address, NSString *province,NSString *city,NSString *area);
+typedef enum : NSUInteger {
+    
+    LZPickerTypeDefault,
+    LZPickerTypeCity,
+    LZPickerTypeSingle,
+} LZPickerType;
 
+typedef void(^lz_backBlock)(NSString *address, NSString *province,NSString *city,NSString *area);
 typedef void(^lz_actionBlock)();
 @interface LZCityPickerView : UIView
+
+/** 显示样式: 省, 省/市, 省市区 */
+@property (assign, nonatomic) LZPickerType type;
 /** 是否自动显示选择结果 */
 @property (assign, nonatomic)BOOL autoChange;
 /** 设置背景图片,带有模糊效果 */

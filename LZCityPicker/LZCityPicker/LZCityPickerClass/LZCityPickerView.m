@@ -124,6 +124,7 @@ static NSInteger const lz_buttonHeight = 30;
         NSAssert(!self._superView, @"ERROR: Please use 'showInView:didSelectWithBlock:' to initialize, and the first parameter can not be nil!");
 //        NSLog(@"视图初始化了");
         self.backgroundColor = [UIColor whiteColor];
+        self.type = LZPickerTypeDefault;
         [self loadData];
     }
     
@@ -324,7 +325,13 @@ static NSInteger const lz_buttonHeight = 30;
 //}
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     
-    return 3;
+    if (self.type == LZPickerTypeCity) {
+        return 2;
+    } else if (self.type == LZPickerTypeSingle) {
+        return 1;
+    } else {
+        return 3;
+    }
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
@@ -390,11 +397,15 @@ static NSInteger const lz_buttonHeight = 30;
         
         __currentArea = [city.areas firstObject];
         
-        [pickerView reloadComponent:1];
-        [pickerView selectRow:0 inComponent:1 animated:YES];
-        
-        [pickerView reloadComponent:2];
-        [pickerView selectRow:0 inComponent:2 animated:YES];
+        if (self.type == LZPickerTypeCity) {
+            [pickerView reloadComponent:1];
+            [pickerView selectRow:0 inComponent:1 animated:YES];
+        } else if (self.type == LZPickerTypeDefault) {
+            [pickerView reloadComponent:1];
+            [pickerView selectRow:0 inComponent:1 animated:YES];
+            [pickerView reloadComponent:2];
+            [pickerView selectRow:0 inComponent:2 animated:YES];
+        }
     } else if (component == 1) {
         
         if (__currentProvience.cities.count > row) {
@@ -405,8 +416,10 @@ static NSInteger const lz_buttonHeight = 30;
             __currentArea = [city.areas firstObject];
         }
         
-        [pickerView reloadComponent:2];
-        [pickerView selectRow:0 inComponent:2 animated:YES];
+        if (self.type == LZPickerTypeDefault) {
+            [pickerView reloadComponent:2];
+            [pickerView selectRow:0 inComponent:2 animated:YES];
+        }
     } else if (component == 2) {
         
         if (__currentCity.areas.count > row) {
