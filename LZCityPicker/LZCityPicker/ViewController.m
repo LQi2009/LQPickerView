@@ -23,6 +23,37 @@
     
     
 }
+
+//#pragma mark - /** 加载数据源 */
+//- (void)loadData {
+//    NSString *path = [[NSBundle mainBundle]pathForResource:@"Address" ofType:@"plist"];
+//    
+//    NSDictionary *dic = [[NSDictionary alloc]initWithContentsOfFile:path];
+//    
+//    NSArray *provinces = [dic allKeys];
+//    
+//    for (NSString *tmp in provinces) {
+//        
+//        LQPickerItem *item1 = [[LQPickerItem alloc]init];
+//        item1.name = tmp;
+//        
+//        NSArray *arr = [dic objectForKey:tmp];
+//        NSDictionary *cityDic = [arr firstObject];
+//        
+//        NSArray *keys = cityDic.allKeys;
+//        [item1 loadData:keys.count config:^(LQPickerItem *item, NSInteger index) {
+//            
+//            item.name = keys[index];
+//            //            NSArray *area = [cityDic objectForKey:item.name];
+//            //            [item loadData:area.count config:^(LQPickerItem *item, NSInteger index) {
+//            //                item.name = area[index];
+//            //            }];
+//        }];
+//        
+//        [self.dataSource addObject:item1];
+//    }
+//}
+
 - (IBAction)buttonClick:(id)sender {
     
     
