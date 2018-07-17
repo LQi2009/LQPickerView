@@ -38,6 +38,8 @@ datas属性内的元素一定要是LQPickerItem，如此逐级嵌套！<br>
 
 以此来说明如何配置数据源，来实现显示多级数据，这里是加载了一个地址信息的plist文件，其数据结构是这样的：
 
+![地址数据结构](https://github.com/LQi2009/LQPickerView/blob/master/地址数据结构.png)
+
 加载数据源的方法为：
 ```
 - (void)loadData {
@@ -74,6 +76,8 @@ datas属性内的元素一定要是LQPickerItem，如此逐级嵌套！<br>
 
 ```
 这样便有一个三级的地址选择器：
+
+![三级数据](https://github.com/LQi2009/LQPickerView/blob/master/三级数据.png)
 
 如果将上述加载的方法的第三极数据注释掉，即：
 ```
@@ -112,18 +116,21 @@ datas属性内的元素一定要是LQPickerItem，如此逐级嵌套！<br>
 
 如此便有一个两级的地址选择器：
 
+![两级数据](https://github.com/LQi2009/LQPickerView/blob/master/两级数据.png)
 
-# 使用
+### 使用
 
 初始化十分简单, 只需要调用我提供的方法即可, 不需要手动添加视图, 方法内实现了视图添加, 只需要调用方法后, 配置一些需要的属性即可:
 <br>例如:
 
 ```
 // 初始化视图
-    LZCityPickerView *picker = [LZCityPickerView showInView:self.view didSelectWithBlock:^(NSString *address, NSString *province, NSString *city, NSString *area) {
-        // 选择结果回调
-        self.addressLabel.text = address;
-        NSLog(@"%@--%@--%@--%@",address,province,city,area);
+   __weak typeof(self)ws = self;
+    [LQCityPicker showInView:self.view datas:self.dataSource didSelectWithBlock:^(NSArray *objs, NSString *dsc) {
+        NSLog(@"%@\n%@", objs, dsc);
+        ws.addressLabel.text = dsc;
+    } cancelBlock:^{
+        NSLog(@"cancel");
     }];
     
     // 配置属性
@@ -134,20 +141,6 @@ datas属性内的元素一定要是LQPickerItem，如此逐级嵌套！<br>
     picker.titleAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:[UIColor whiteColor]};
     
 ```
-
-或者, 直接使用**LZCityPickerController**, 这里增加了一个透明背景, 使用非常简单:
-```
-[LZCityPickerController showPickerInViewController:self selectBlock:^(NSString *address, NSString *province, NSString *city, NSString *area) {
-        
-        // 选择结果回调
-        self.addressLabel.text = address;
-        NSLog(@"%@--%@--%@--%@",address,province,city,area);
-
-    }];
-  
-```
-
-**block**用于返回结果, 只需要将当前控制器传过去即可;
 
 # 示意图
 
