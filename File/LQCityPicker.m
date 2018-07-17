@@ -149,6 +149,12 @@ static CGFloat const lz_contentHeight = 246.0;
     self.pickerView.buttonTitleAttributes = titleAttributes;
 }
 
+- (void)setIsBlur:(BOOL)isBlur {
+    _isBlur = isBlur;
+    
+    self.pickerView.isBlur = isBlur;
+}
+
 - (LQPickerView *)pickerView {
     if (_pickerView == nil) {
         _pickerView = [[LQPickerView alloc]init];

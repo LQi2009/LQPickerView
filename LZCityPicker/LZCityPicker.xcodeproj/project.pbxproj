@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		910F76E11E319E740018B914 /* LZCityPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 910F76E01E319E740018B914 /* LZCityPickerController.m */; };
-		910F76E41E319E910018B914 /* LZPickerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 910F76E31E319E910018B914 /* LZPickerModel.m */; };
 		913AD67C1D7528B8005DA1CA /* 40fe711f9b754b596159f3a6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 913AD67B1D7528B8005DA1CA /* 40fe711f9b754b596159f3a6.jpg */; };
 		91D23E2E1D740A160033A791 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D23E2D1D740A160033A791 /* main.m */; };
 		91D23E311D740A160033A791 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D23E301D740A160033A791 /* AppDelegate.m */; };
@@ -17,8 +15,9 @@
 		91D23E391D740A160033A791 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91D23E381D740A160033A791 /* Assets.xcassets */; };
 		91D23E3C1D740A160033A791 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91D23E3A1D740A160033A791 /* LaunchScreen.storyboard */; };
 		91D23E471D740A160033A791 /* LZCityPickerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D23E461D740A160033A791 /* LZCityPickerUITests.m */; };
-		91D23E541D740A4E0033A791 /* LZCityPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D23E531D740A4E0033A791 /* LZCityPickerView.m */; };
 		91D23E561D740A670033A791 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91D23E551D740A670033A791 /* Address.plist */; };
+		D2B61FD220FE32E00085AAA6 /* LQPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B61FCC20FE32E00085AAA6 /* LQPickerView.m */; };
+		D2B61FD420FE32E00085AAA6 /* LQCityPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B61FCE20FE32E00085AAA6 /* LQCityPicker.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,10 +31,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		910F76DF1E319E740018B914 /* LZCityPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZCityPickerController.h; sourceTree = "<group>"; };
-		910F76E01E319E740018B914 /* LZCityPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZCityPickerController.m; sourceTree = "<group>"; };
-		910F76E21E319E910018B914 /* LZPickerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZPickerModel.h; sourceTree = "<group>"; };
-		910F76E31E319E910018B914 /* LZPickerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZPickerModel.m; sourceTree = "<group>"; };
 		913AD67B1D7528B8005DA1CA /* 40fe711f9b754b596159f3a6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 40fe711f9b754b596159f3a6.jpg; sourceTree = "<group>"; };
 		91D23E291D740A160033A791 /* LZCityPicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LZCityPicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91D23E2D1D740A160033A791 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -50,9 +45,11 @@
 		91D23E421D740A160033A791 /* LZCityPickerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LZCityPickerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		91D23E461D740A160033A791 /* LZCityPickerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LZCityPickerUITests.m; sourceTree = "<group>"; };
 		91D23E481D740A160033A791 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		91D23E521D740A4E0033A791 /* LZCityPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZCityPickerView.h; sourceTree = "<group>"; };
-		91D23E531D740A4E0033A791 /* LZCityPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZCityPickerView.m; sourceTree = "<group>"; };
 		91D23E551D740A670033A791 /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
+		D2B61FCC20FE32E00085AAA6 /* LQPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LQPickerView.m; sourceTree = "<group>"; };
+		D2B61FCE20FE32E00085AAA6 /* LQCityPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LQCityPicker.m; sourceTree = "<group>"; };
+		D2B61FCF20FE32E00085AAA6 /* LQPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LQPickerView.h; sourceTree = "<group>"; };
+		D2B61FD120FE32E00085AAA6 /* LQCityPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LQCityPicker.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +91,9 @@
 		91D23E2B1D740A160033A791 /* LZCityPicker */ = {
 			isa = PBXGroup;
 			children = (
+				91D23E551D740A670033A791 /* Address.plist */,
+				D2B61FCB20FE32E00085AAA6 /* File */,
 				913AD67B1D7528B8005DA1CA /* 40fe711f9b754b596159f3a6.jpg */,
-				91D23E511D740A340033A791 /* LZCityPickerClass */,
 				91D23E2F1D740A160033A791 /* AppDelegate.h */,
 				91D23E301D740A160033A791 /* AppDelegate.m */,
 				91D23E321D740A160033A791 /* ViewController.h */,
@@ -126,18 +124,16 @@
 			path = LZCityPickerUITests;
 			sourceTree = "<group>";
 		};
-		91D23E511D740A340033A791 /* LZCityPickerClass */ = {
+		D2B61FCB20FE32E00085AAA6 /* File */ = {
 			isa = PBXGroup;
 			children = (
-				91D23E551D740A670033A791 /* Address.plist */,
-				91D23E521D740A4E0033A791 /* LZCityPickerView.h */,
-				91D23E531D740A4E0033A791 /* LZCityPickerView.m */,
-				910F76DF1E319E740018B914 /* LZCityPickerController.h */,
-				910F76E01E319E740018B914 /* LZCityPickerController.m */,
-				910F76E21E319E910018B914 /* LZPickerModel.h */,
-				910F76E31E319E910018B914 /* LZPickerModel.m */,
+				D2B61FCF20FE32E00085AAA6 /* LQPickerView.h */,
+				D2B61FCC20FE32E00085AAA6 /* LQPickerView.m */,
+				D2B61FD120FE32E00085AAA6 /* LQCityPicker.h */,
+				D2B61FCE20FE32E00085AAA6 /* LQCityPicker.m */,
 			);
-			path = LZCityPickerClass;
+			name = File;
+			path = ../../File;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,11 +240,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				91D23E341D740A160033A791 /* ViewController.m in Sources */,
-				910F76E11E319E740018B914 /* LZCityPickerController.m in Sources */,
-				91D23E541D740A4E0033A791 /* LZCityPickerView.m in Sources */,
 				91D23E311D740A160033A791 /* AppDelegate.m in Sources */,
+				D2B61FD420FE32E00085AAA6 /* LQCityPicker.m in Sources */,
 				91D23E2E1D740A160033A791 /* main.m in Sources */,
-				910F76E41E319E910018B914 /* LZPickerModel.m in Sources */,
+				D2B61FD220FE32E00085AAA6 /* LQPickerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

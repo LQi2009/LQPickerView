@@ -24,6 +24,11 @@ typedef void(^LQCityPickerCancelHandler)(void);
 /** 按钮标题字体属性,默认:蓝色,14号 */
 @property (strong, nonatomic)NSDictionary *titleAttributes;
 
+/**
+ 毛玻璃效果
+ */
+@property (nonatomic, assign) BOOL isBlur;
+
 + (instancetype)showInView:(UIView *)view datas:(NSArray *)datas didSelectWithBlock:(LQCityPickerHandler)block cancelBlock:(LQCityPickerCancelHandler)cancel ;
 
 - (void)show ;

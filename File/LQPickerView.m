@@ -15,11 +15,11 @@
 #define LQPickerView_buttonHeight 30.0
 @interface LQPickerView () <UIPickerViewDelegate,UIPickerViewDataSource>
 
-@property (nonatomic, strong)CALayer *topLine;
+@property (nonatomic, strong) CALayer *topLine;
 @property (nonatomic, strong) UIPickerView *pickerView;
-@property (nonatomic, strong)UIImageView *backgroundImageView;
-@property (nonatomic, strong)UIVisualEffectView *blurView;
-@property (strong, nonatomic)UIButton *commitButton;
+@property (nonatomic, strong) UIImageView *backgroundImageView;
+@property (nonatomic, strong) UIVisualEffectView *blurView;
+@property (strong, nonatomic) UIButton *commitButton;
 @property (nonatomic, strong) NSMutableArray *currentItems;
 @property (nonatomic, strong) NSArray *dataSource;
 @property (nonatomic, copy) LQPickerViewHandler commitHandler;
