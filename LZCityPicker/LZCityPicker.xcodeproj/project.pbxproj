@@ -185,7 +185,7 @@
 				TargetAttributes = {
 					91D23E281D740A160033A791 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 29BN9F9KNE;
+						DevelopmentTeam = M5AQP3WXJE;
 					};
 					91D23E411D740A160033A791 = {
 						CreatedOnToolsVersion = 7.3;
@@ -198,6 +198,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -373,7 +374,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 29BN9F9KNE;
+				DEVELOPMENT_TEAM = M5AQP3WXJE;
 				INFOPLIST_FILE = LZCityPicker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.artup.LZCityPicker;
@@ -385,7 +386,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 29BN9F9KNE;
+				DEVELOPMENT_TEAM = M5AQP3WXJE;
 				INFOPLIST_FILE = LZCityPicker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.artup.LZCityPicker;
