@@ -32,6 +32,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     [self loadData];
     
+//    LQPickerView *picker = [LQPickerView pickerViewFrame:CGRectMake(0, 200, CGRectGetWidth(self.view.frame), 200) datas:<#(NSArray<LQPickerItem *> *)#> commitHandler:<#^(NSArray<LQPickerItem *> *objs, NSString *dsc)handler#> autoHandler:<#^(NSArray<LQPickerItem *> *objs, NSString *dsc)autoHandler#>];
 }
 
 #pragma mark - /** 加载数据源 */

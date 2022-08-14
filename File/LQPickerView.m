@@ -16,6 +16,8 @@
 @interface LQPickerView () <UIPickerViewDelegate,UIPickerViewDataSource>
 
 @property (nonatomic, strong) CALayer *topLine;
+
+
 @property (nonatomic, strong) UIPickerView *pickerView;
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 @property (nonatomic, strong) UIVisualEffectView *blurView;
@@ -190,6 +192,10 @@
     }
 }
 
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
+    
+    return 60;
+}
 #pragma mark - 递归分配数据
 - (void) configDefaultItemFromDatas:(NSArray *)datas {
     

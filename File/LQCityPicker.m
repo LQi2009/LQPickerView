@@ -35,6 +35,7 @@ static CGFloat const lz_contentHeight = 246.0;
     cityPicker.frame = CGRectMake(0, 0, lz_screenWidth, lz_screenHeight);
     
     cityPicker.autoChange = YES;
+    cityPicker.isBlur = YES;
     cityPicker.selectBlock = block;
     cityPicker.cancelBlock = cancel;
     cityPicker.interval = 0.20;
@@ -162,6 +163,7 @@ static CGFloat const lz_contentHeight = 246.0;
         _pickerView.buttonTitleAttributes = self.titleAttributes;
         _pickerView.textAttributes = self.textAttributes;
 //        _pickerView.isBlur = YES;
+        _pickerView.backgroundImage = [UIImage imageNamed:@"40fe711f9b754b596159f3a6.jpg"];
         _pickerView.frame = CGRectMake(0, lz_screenHeight, lz_screenWidth, lz_contentHeight);
         [self addSubview:_pickerView];
     }
